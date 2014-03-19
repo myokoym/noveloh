@@ -1,3 +1,6 @@
+env:
+  global:
+    - DISPLAY=":99.0"
 language: ruby
 rvm:
   - 1.9.3
@@ -13,3 +16,7 @@ matrix:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq -y build-essential freeglut3-dev libfreeimage-dev libgl1-mesa-dev libopenal-dev libpango1.0-dev libsdl-ttf2.0-dev libsndfile-dev libxinerama-dev
+before_script:
+  - sh -e /etc/init.d/xvfb start
+after_script:
+  - sh -e /ext/init.d/xvfb stop
