@@ -1,4 +1,4 @@
-# Noveloh
+# Noveloh [![Build Status](https://secure.travis-ci.org/myokoym/noveloh.png?branch=master)](http://travis-ci.org/myokoym/noveloh)
 
 A novel game engine using [Gosu][] and [Ruby][].
 
