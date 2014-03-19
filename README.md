@@ -1,6 +1,9 @@
 # Noveloh
 
-A novel game engine using Gosu and Ruby.
+A novel game engine using [Gosu][] and [Ruby][].
+
+[Gosu]: http://www.libgosu.org/
+[Ruby]: https://www.ruby-lang.org/
 
 ## Installation
 
