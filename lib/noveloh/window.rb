@@ -96,18 +96,18 @@ module Noveloh
       tags = @pages[@page_index - 1]["jump"]
       return unless tags
       unless tags.is_a?(String)
-      if @cursor <= 0
-        @page_index -= 1
-        return
-      end
+        if @cursor <= 0
+          @page_index -= 1
+          return
+        end
       end
       next_page = nil
       @pages.each_with_index do |page, i|
         current_tag = page["tag"]
         next unless current_tag
 	unless tags.is_a?(String)
-        selected_tag = tags[@cursor - 1]
-        next unless current_tag == selected_tag
+          selected_tag = tags[@cursor - 1]
+          next unless current_tag == selected_tag
 	end
         next_page = i
       end
