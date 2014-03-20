@@ -22,7 +22,7 @@ module Noveloh
       case id
       when Gosu::KbEscape
         close
-      when Gosu::KbReturn, Gosu::KbSpace
+      when Gosu::KbReturn, Gosu::KbEnter, Gosu::KbSpace
         if @pages.length <= @page_index
           close
         else
