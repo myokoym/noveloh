@@ -76,5 +76,17 @@
 
   tag: tag3
 
+  jump: end
+
+-
+  text: |-
+    このページはスキップされるはずなので、
+    見えているということはどこかバグってます。
+    以下のURLまでご連絡ください。（日本語でOK）
+
+    https://github.com/myokoym/noveloh/issues
+
 -
   text: それでは。
+
+  tag: end
