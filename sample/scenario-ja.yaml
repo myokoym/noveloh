@@ -40,12 +40,41 @@
 
 -
   text: |-
+    選択肢機能もあります。
+
+    (このページはtag1です）
+
+  tag: tag1
+
+-
+  text: |-
+    上下キーで選択します。
+
+    (このページはtag2です）
+
+  tag: tag2
+
+-
+  text: |-
+    1.tag1へジャンブ
+    2.tag2へジャンブ
+    3.次のページ
+
+  jump:
+    - tag1
+    - tag2
+    - tag3
+
+-
+  text: |-
     機能の説明は以上です。
 
     選択肢などは未実装なので、これから作ります。
     リクエストがあれば、以下のURLまでご連絡ください。
 
     https://github.com/myokoym/noveloh/issues
+
+  tag: tag3
 
 -
   text: それでは。

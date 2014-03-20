@@ -29,6 +29,7 @@ module Noveloh
           close
         else
           @page_index += 1
+          jump
           @cursor = 0
           set_background_image
           play_beep
@@ -88,6 +89,29 @@ module Noveloh
       beep_file = @pages[@page_index]["beep"]
       return unless beep_file
       Gosu::Sample.new(self, beep_file).play
+    end
+
+    def jump
+      return unless @pages[@page_index]
+      tags = @pages[@page_index - 1]["jump"]
+      return unless tags
+      if @cursor <= 0
+        @page_index -= 1
+        return
+      end
+      next_page = nil
+      @pages.each_with_index do |page, i|
+        current_tag = page["tag"]
+        next unless current_tag
+        selected_tag = tags[@cursor - 1]
+        next unless current_tag == selected_tag
+        next_page = i
+      end
+      if next_page
+        @page_index = next_page
+      else
+        @page_index -= 1
+      end
     end
   end
 end
