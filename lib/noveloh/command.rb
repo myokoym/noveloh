@@ -1,11 +1,11 @@
 require "noveloh/window"
-require "yaml"
+require "noveloh/parser"
 
 module Noveloh
   class Command
     class << self
       def run(*arguments)
-        window = Window.new(YAML.load(File.read(arguments[0])))
+        window = Window.new(Parser.parse(arguments[0]))
         window.show
       end
     end
