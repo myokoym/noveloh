@@ -7,6 +7,7 @@ module Noveloh
       self.caption = "Noveloh"
       @pages = pages
       @page_index = 0
+      @cursor = 0
       @font_size = height / 15
       @font = Gosu::Font.new(self, Gosu.default_font_name, @font_size)
       @background_image = nil
@@ -16,6 +17,7 @@ module Noveloh
     def draw
       draw_background_image if @background_image
       draw_text
+      draw_cursor if @cursor > 0
     end
 
     def button_down(id)
@@ -27,9 +29,14 @@ module Noveloh
           close
         else
           @page_index += 1
+          @cursor = 0
           set_background_image
           play_beep
         end
+      when Gosu::KbDown
+        @cursor += 1
+      when Gosu::KbUp
+        @cursor -= 1
       end
     end
 
@@ -65,6 +72,15 @@ module Noveloh
                  1.0 * self.width / width,
                  1.0 * self.height / height,
                  color)
+    end
+
+    def draw_cursor
+      color = 0x66ffffff
+      cursor_width = @font_size
+      self.draw_quad(5,              10 + cursor_width * (@cursor - 1), color,
+                     self.width - 5, 10 + cursor_width * (@cursor - 1), color,
+                     5,              10 + cursor_width * @cursor, color,
+                     self.width - 5, 10 + cursor_width * @cursor, color)
     end
 
     def play_beep
