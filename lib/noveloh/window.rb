@@ -55,8 +55,10 @@ module Noveloh
       end
     end
 
-    def draw_background_image(color=0x66ffffff)
+    def draw_background_image
       image  = @background_image
+      page = @pages[@page_index]
+      color = (page && page["background_color"]) || 0x66ffffff
       width  = image.width
       height = image.height
       image.draw(0, 0, 0,
