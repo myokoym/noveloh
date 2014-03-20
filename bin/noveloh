@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "noveloh/command"
+
+Noveloh::Command.run(*ARGV)
