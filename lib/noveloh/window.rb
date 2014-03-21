@@ -51,8 +51,9 @@ module Noveloh
 
     def draw_text
       return unless @pages[@page_index]
-      return unless @pages[@page_index]["text"]
-      text = @pages[@page_index]["text"].encode("UTF-8")
+      text = @pages[@page_index]["text"]
+      return unless text
+      text.encode!("UTF-8")
       color = @pages[@page_index]["color"] || 0xffffffff
       text.each_line.with_index do |line, i|
         line.chomp!
