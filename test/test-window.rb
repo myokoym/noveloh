@@ -3,7 +3,7 @@ require "noveloh/window"
 class WindowTest < Test::Unit::TestCase
   def test_init
     pages = []
-    @window = Noveloh::Window.new(pages)
+    assert_not_nil(Noveloh::Window.new(pages))
   end
 
   private
