@@ -109,7 +109,7 @@ module Noveloh
         next unless current_tag
         unless tags.is_a?(String)
           selected_tag = tags[@cursor - 1]
-          next unless current_tag == selected_ta
+          next unless current_tag == selected_tag
         end
         next_page = i
       end
