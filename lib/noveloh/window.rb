@@ -107,10 +107,10 @@ module Noveloh
       @pages.each_with_index do |page, i|
         current_tag = page["tag"]
         next unless current_tag
-	unless tags.is_a?(String)
+        unless tags.is_a?(String)
           selected_tag = tags[@cursor - 1]
-          next unless current_tag == selected_tag
-	end
+          next unless current_tag == selected_ta
+        end
         next_page = i
       end
       if next_page
