@@ -12,6 +12,7 @@ module Noveloh
       @font = Gosu::Font.new(self, Gosu.default_font_name, @font_size)
       @background_image = nil
       set_background_image
+      @flags = {}
     end
 
     def draw
@@ -28,6 +29,8 @@ module Noveloh
         if @pages.length <= @page_index
           close
         else
+          flag_on
+          flag_off
           @page_index += 1
           jump
           @cursor = 0
@@ -93,11 +96,26 @@ module Noveloh
       Gosu::Sample.new(self, beep_file).play
     end
 
+    def flag_on
+      return unless @pages[@page_index]
+      flag = @pages[@page_index]["flag"]
+      return unless flag
+      @flags[flag] = true
+    end
+
+    def flag_off
+      return unless @pages[@page_index]
+      flag = @pages[@page_index]["flag_off"]
+      return unless flag
+      @flags[flag] = false
+    end
+
+    # TODO: refactoring
     def jump
       return unless @pages[@page_index]
       tags = @pages[@page_index - 1]["jump"]
       return unless tags
-      unless tags.is_a?(String)
+      if tags.is_a?(Array)
         if @cursor <= 0
           @page_index -= 1
           return
@@ -107,9 +125,21 @@ module Noveloh
       @pages.each_with_index do |page, i|
         current_tag = page["tag"]
         next unless current_tag
-        unless tags.is_a?(String)
+        if tags.is_a?(Array)
           selected_tag = tags[@cursor - 1]
           next unless current_tag == selected_tag
+        elsif tags.is_a?(Hash)
+          selected_tag = nil
+          tags.each_entry do |key, value|
+            if @flags[key]
+              selected_tag = value
+              break
+            end
+          end
+          selected_tag = tags["else"] unless selected_tag
+          next unless current_tag == selected_tag
+        elsif tags.is_a?(String)
+          next unless current_tag == tags
         end
         next_page = i
       end

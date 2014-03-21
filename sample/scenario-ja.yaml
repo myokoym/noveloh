@@ -41,52 +41,60 @@
 -
   text: |-
     選択肢機能もあります。
-
-    (このページはtag1です）
-
-  tag: tag1
-
--
-  text: |-
     上下キーで選択します。
-
-    (このページはtag2です）
-
-  tag: tag2
 
 -
   text: |-
     1.tag1へジャンブ
     2.tag2へジャンブ
-    3.次のページ
 
   jump:
     - tag1
     - tag2
-    - tag3
+
+-
+  text: |-
+    このページはtag1です。
+
+  tag: tag1
+  jump: tag3
+
+-
+  text: |-
+    このページはtag2です。
+
+  flag: tag2
+  tag: tag2
+  jump: tag3
+
+-
+  text: |-
+    フラグ機能もあります。
+
+    次のページは、tag2を選んだ人だけ
+    見ることができます。
+
+  tag: tag3
+  jump:
+    tag2: selected_tag2
+    else: end
+
+-
+  text: |-
+    このページは、tag2を選んだ人だけ見えています。
+
+  tag: selected_tag2
 
 -
   text: |-
     機能の説明は以上です。
 
-    フラグなどは未実装なので、これから作ります。
+    好感度などは未実装なので、これから作ります。
     リクエストがあれば、以下のURLまでご連絡ください。
 
     https://github.com/myokoym/noveloh/issues
 
-  tag: tag3
-
-  jump: end
-
--
-  text: |-
-    このページはスキップされるはずなので、
-    見えているということはどこかバグってます。
-    以下のURLまでご連絡ください。（日本語でOK）
-
-    https://github.com/myokoym/noveloh/issues
+  tag: end
 
 -
   text: それでは。
-
-  tag: end
