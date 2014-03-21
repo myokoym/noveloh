@@ -77,11 +77,11 @@ module Noveloh
 
     def draw_cursor
       color = 0x66ffffff
-      cursor_width = @font_size
-      self.draw_quad(5,              10 + cursor_width * (@cursor - 1), color,
-                     self.width - 5, 10 + cursor_width * (@cursor - 1), color,
-                     5,              10 + cursor_width * @cursor, color,
-                     self.width - 5, 10 + cursor_width * @cursor, color)
+      cursor_height = @font_size
+      self.draw_quad(5,              10 + cursor_height * (@cursor - 1), color,
+                     self.width - 5, 10 + cursor_height * (@cursor - 1), color,
+                     5,              10 + cursor_height * @cursor, color,
+                     self.width - 5, 10 + cursor_height * @cursor, color)
     end
 
     def play_beep
