@@ -30,7 +30,6 @@ class WindowTest < Test::Unit::TestCase
     class BackgroundImageTest < self
       def setup
         pages = [
-          {"text" => "Hello"},
           {"background_image" => File.join(fixtures_dir, "leaf.jpg")},
         ]
         @window = Noveloh::Window.new(pages)
