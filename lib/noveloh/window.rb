@@ -1,4 +1,5 @@
 require "gosu"
+require "noveloh/background"
 require "noveloh/cursor"
 require "noveloh/beep"
 
@@ -11,14 +12,14 @@ module Noveloh
       @page_index = 0
       @font_size = height / 15
       @font = Gosu::Font.new(self, Gosu.default_font_name, @font_size)
-      @background_image = nil
-      set_background_image
       @flags = {}
+      @background = Background.new(self)
+      @background.apply_page(@pages.first)
       @cursor = Cursor.new(self, @font_size)
     end
 
     def draw
-      draw_background_image if @background_image
+      @background.draw
       draw_text
       @cursor.draw
     end
@@ -36,7 +37,7 @@ module Noveloh
           @page_index += 1
           jump
           @cursor.clear
-          set_background_image
+          @background.apply_page(@pages[@page_index])
           play_beep
         end
       when Gosu::KbDown
@@ -47,13 +48,6 @@ module Noveloh
     end
 
     private
-    def set_background_image
-      return unless @pages[@page_index]
-      background_image = @pages[@page_index]["background_image"]
-      return unless background_image
-      @background_image = Gosu::Image.new(self, background_image)
-    end
-
     def draw_text
       return unless @pages[@page_index]
       text = @pages[@page_index]["text"]
@@ -68,18 +62,6 @@ module Noveloh
                    1.0, 1.0,
                    color)
       end
-    end
-
-    def draw_background_image
-      image  = @background_image
-      page = @pages[@page_index]
-      color = (page && page["background_color"]) || 0x66ffffff
-      width  = image.width
-      height = image.height
-      image.draw(0, 0, 0,
-                 1.0 * self.width / width,
-                 1.0 * self.height / height,
-                 color)
     end
 
     def play_beep
