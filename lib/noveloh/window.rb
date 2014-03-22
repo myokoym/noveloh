@@ -45,12 +45,12 @@ module Noveloh
 
     private
     def turn_over
-          flag_on
-          flag_off
-          @page_index += 1
-          jump
-          @cursor.clear
-          apply_page(@pages[@page_index])
+      flag_on
+      flag_off
+      @page_index += 1
+      jump
+      @cursor.clear
+      apply_page(@pages[@page_index])
     end
 
     def apply_page(page)
