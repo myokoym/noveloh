@@ -14,6 +14,7 @@ module Noveloh
       font_size = self.height / 15
       @flags = {}
       @text = Text.new(self, font_size)
+      @text.apply_page(@pages.first)
       @background = Background.new(self)
       @background.apply_page(@pages.first)
       @cursor = Cursor.new(self, font_size)
@@ -22,7 +23,7 @@ module Noveloh
 
     def draw
       @background.draw
-      @text.draw(@pages[@page_index])
+      @text.draw
       @cursor.draw
     end
 
@@ -42,6 +43,7 @@ module Noveloh
           current_page = @pages[@page_index]
           return unless current_page
           @background.apply_page(current_page)
+          @text.apply_page(current_page)
           @sound.apply_page(current_page)
         end
       when Gosu::KbDown
