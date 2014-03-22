@@ -1,5 +1,3 @@
-require "gosu"
-
 module Noveloh
   class Cursor
     attr_reader :position
