@@ -9,7 +9,8 @@ module Noveloh
     def apply_page(page)
       return unless page
       beep = page["beep"]
-      Gosu::Sample.new(@window, beep).play if beep
+      return unless beep
+      Gosu::Sample.new(@window, beep).play
     end
   end
 end
