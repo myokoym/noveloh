@@ -1,5 +1,6 @@
 require "gosu"
 require "noveloh/background"
+require "noveloh/text"
 require "noveloh/cursor"
 require "noveloh/sound"
 
@@ -10,18 +11,18 @@ module Noveloh
       self.caption = "Noveloh"
       @pages = pages
       @page_index = 0
-      @font_size = height / 15
-      @font = Gosu::Font.new(self, Gosu.default_font_name, @font_size)
+      font_size = self.height / 15
       @flags = {}
+      @text = Text.new(self, font_size)
       @background = Background.new(self)
       @background.apply_page(@pages.first)
-      @cursor = Cursor.new(self, @font_size)
+      @cursor = Cursor.new(self, font_size)
       @sound = Sound.new(self)
     end
 
     def draw
       @background.draw
-      draw_text
+      @text.draw(@pages[@page_index])
       @cursor.draw
     end
 
