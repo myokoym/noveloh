@@ -22,12 +22,10 @@ module Noveloh
     end
 
     def apply_page(page)
+      @text = nil
       return unless page
       text = page["text"]
-      unless text
-        @text = nil
-        return
-      end
+      return unless text
       text.encode!("UTF-8")
       @text = text
       @color = page["color"] || 0xffffffff
