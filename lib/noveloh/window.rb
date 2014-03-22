@@ -34,12 +34,7 @@ module Noveloh
         if @pages.length <= @page_index
           close
         else
-          flag_on
-          flag_off
-          @page_index += 1
-          jump
-          @cursor.clear
-          apply_page(@pages[@page_index])
+          turn_over
         end
       when Gosu::KbDown
         @cursor.increment
@@ -49,6 +44,15 @@ module Noveloh
     end
 
     private
+    def turn_over
+          flag_on
+          flag_off
+          @page_index += 1
+          jump
+          @cursor.clear
+          apply_page(@pages[@page_index])
+    end
+
     def apply_page(page)
       return unless page
       @background.apply_page(page)
