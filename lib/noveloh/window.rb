@@ -1,7 +1,7 @@
 require "gosu"
 require "noveloh/background"
 require "noveloh/cursor"
-require "noveloh/beep"
+require "noveloh/sound"
 
 module Noveloh
   class Window < Gosu::Window
@@ -16,6 +16,7 @@ module Noveloh
       @background = Background.new(self)
       @background.apply_page(@pages.first)
       @cursor = Cursor.new(self, @font_size)
+      @sound = Sound.new(self)
     end
 
     def draw
@@ -37,8 +38,10 @@ module Noveloh
           @page_index += 1
           jump
           @cursor.clear
-          @background.apply_page(@pages[@page_index])
-          play_beep
+          current_page = @pages[@page_index]
+          return unless current_page
+          @background.apply_page(current_page)
+          @sound.apply_page(current_page)
         end
       when Gosu::KbDown
         @cursor.increment
@@ -62,13 +65,6 @@ module Noveloh
                    1.0, 1.0,
                    color)
       end
-    end
-
-    def play_beep
-      return unless @pages[@page_index]
-      beep_file = @pages[@page_index]["beep"]
-      return unless beep_file
-      Beep.new(self, beep_file).play
     end
 
     def flag_on
