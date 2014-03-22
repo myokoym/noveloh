@@ -1,5 +1,6 @@
 require "gosu"
 require "noveloh/cursor"
+require "noveloh/beep"
 
 module Noveloh
   class Window < Gosu::Window
@@ -85,7 +86,7 @@ module Noveloh
       return unless @pages[@page_index]
       beep_file = @pages[@page_index]["beep"]
       return unless beep_file
-      Gosu::Sample.new(self, beep_file).play
+      Beep.new(self, beep_file).play
     end
 
     def flag_on
