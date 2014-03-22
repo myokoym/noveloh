@@ -99,15 +99,21 @@ class WindowTest < Test::Unit::TestCase
 
     class UpTest < self
       def test_cursor_decrement
+        cursor = @window.instance_variable_get(:@cursor)
+        mock(cursor).decrement
+        assert_nothing_raised do
         @window.button_down(Gosu::KbUp)
-        assert_equal(-1, @window.instance_variable_get(:@cursor))
+        end
       end
     end
 
     class DownTest < self
       def test_cursor_increment
+        cursor = @window.instance_variable_get(:@cursor)
+        mock(cursor).increment
+        assert_nothing_raised do
         @window.button_down(Gosu::KbDown)
-        assert_equal(1, @window.instance_variable_get(:@cursor))
+        end
       end
     end
   end

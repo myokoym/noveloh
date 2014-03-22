@@ -1,4 +1,5 @@
 require "gosu"
+require "noveloh/cursor"
 
 module Noveloh
   class Window < Gosu::Window
@@ -7,18 +8,18 @@ module Noveloh
       self.caption = "Noveloh"
       @pages = pages
       @page_index = 0
-      @cursor = 0
       @font_size = height / 15
       @font = Gosu::Font.new(self, Gosu.default_font_name, @font_size)
       @background_image = nil
       set_background_image
       @flags = {}
+      @cursor = Cursor.new(self, @font_size)
     end
 
     def draw
       draw_background_image if @background_image
       draw_text
-      draw_cursor if @cursor > 0
+      @cursor.draw
     end
 
     def button_down(id)
@@ -33,14 +34,14 @@ module Noveloh
           flag_off
           @page_index += 1
           jump
-          @cursor = 0
+          @cursor.clear
           set_background_image
           play_beep
         end
       when Gosu::KbDown
-        @cursor += 1
+        @cursor.increment
       when Gosu::KbUp
-        @cursor -= 1
+        @cursor.decrement
       end
     end
 
@@ -80,15 +81,6 @@ module Noveloh
                  color)
     end
 
-    def draw_cursor
-      color = 0x66ffffff
-      cursor_height = @font_size
-      self.draw_quad(5,              10 + cursor_height * (@cursor - 1), color,
-                     self.width - 5, 10 + cursor_height * (@cursor - 1), color,
-                     5,              10 + cursor_height * @cursor, color,
-                     self.width - 5, 10 + cursor_height * @cursor, color)
-    end
-
     def play_beep
       return unless @pages[@page_index]
       beep_file = @pages[@page_index]["beep"]
@@ -116,7 +108,7 @@ module Noveloh
       tags = @pages[@page_index - 1]["jump"]
       return unless tags
       if tags.is_a?(Array)
-        if @cursor <= 0
+        if @cursor.position <= 0
           @page_index -= 1
           return
         end
@@ -126,7 +118,7 @@ module Noveloh
         current_tag = page["tag"]
         next unless current_tag
         if tags.is_a?(Array)
-          selected_tag = tags[@cursor - 1]
+          selected_tag = tags[@cursor.position - 1]
           next unless current_tag == selected_tag
         elsif tags.is_a?(Hash)
           selected_tag = nil
