@@ -11,12 +11,8 @@ module Noveloh
       self.caption = "Noveloh"
       @pages = pages
       @page_index = 0
-      font_size = self.height / 15
       @flags = {}
-      @text = Text.new(self, font_size)
-      @background = Background.new(self)
-      @cursor = Cursor.new(self, font_size)
-      @sound = Sound.new(self)
+      init_elements
       apply_page(@pages.first)
     end
 
@@ -44,6 +40,14 @@ module Noveloh
     end
 
     private
+    def init_elements
+      font_size = self.height / 15
+      @background = Background.new(self)
+      @text = Text.new(self, font_size)
+      @sound = Sound.new(self)
+      @cursor = Cursor.new(self, font_size)
+    end
+
     def turn_over
       flag_on
       flag_off
