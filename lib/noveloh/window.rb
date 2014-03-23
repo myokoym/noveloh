@@ -43,9 +43,9 @@ module Noveloh
     def init_elements
       font_size = self.height / 15
       @background = Background.new(self)
-      @text = Text.new(self, font_size)
-      @sound = Sound.new(self)
-      @cursor = Cursor.new(self, font_size)
+      @text       = Text.new(self, font_size)
+      @sound      = Sound.new(self)
+      @cursor     = Cursor.new(self, font_size)
     end
 
     def turn_over
