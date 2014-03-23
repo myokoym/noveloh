@@ -3,6 +3,7 @@ require "noveloh/background"
 require "noveloh/text"
 require "noveloh/cursor"
 require "noveloh/sound"
+require "noveloh/tag_index"
 
 module Noveloh
   class Window < Gosu::Window
@@ -11,6 +12,7 @@ module Noveloh
       self.caption = "Noveloh"
       @pages = pages
       @page_index = 0
+      @tag_index = TagIndex.new(pages)
       @flags = {}
       init_elements
       apply_page(@pages.first)
@@ -89,13 +91,10 @@ module Noveloh
           return
         end
       end
-      next_page = nil
-      @pages.each_with_index do |page, i|
-        current_tag = page["tag"]
-        next unless current_tag
+
+        selected_tag = nil
         if tags.is_a?(Array)
           selected_tag = tags[@cursor.position - 1]
-          next unless current_tag == selected_tag
         elsif tags.is_a?(Hash)
           selected_tag = nil
           tags.each_entry do |key, value|
@@ -105,12 +104,11 @@ module Noveloh
             end
           end
           selected_tag = tags["else"] unless selected_tag
-          next unless current_tag == selected_tag
         elsif tags.is_a?(String)
-          next unless current_tag == tags
+          selected_tag = tags
         end
-        next_page = i
-      end
+        next_page = @tag_index[selected_tag]
+
       if next_page
         @page_index = next_page
       else
