@@ -48,7 +48,7 @@
     1.tag1へジャンブ
     2.tag2へジャンブ
 
-  jump:
+  select:
     - tag1
     - tag2
 
@@ -75,7 +75,7 @@
     見ることができます。
 
   tag: tag3
-  jump:
+  flag_jump:
     tag2: selected_tag2
     else: end
 
