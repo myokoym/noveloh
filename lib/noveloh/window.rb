@@ -92,22 +92,22 @@ module Noveloh
         end
       end
 
+      selected_tag = nil
+      if tags.is_a?(Array)
+        selected_tag = tags[@cursor.position - 1]
+      elsif tags.is_a?(Hash)
         selected_tag = nil
-        if tags.is_a?(Array)
-          selected_tag = tags[@cursor.position - 1]
-        elsif tags.is_a?(Hash)
-          selected_tag = nil
-          tags.each_entry do |key, value|
-            if @flags[key]
-              selected_tag = value
-              break
-            end
+        tags.each_entry do |key, value|
+          if @flags[key]
+            selected_tag = value
+            break
           end
-          selected_tag = tags["else"] unless selected_tag
-        elsif tags.is_a?(String)
-          selected_tag = tags
         end
-        next_page = @tag_index[selected_tag]
+        selected_tag = tags["else"] unless selected_tag
+      elsif tags.is_a?(String)
+        selected_tag = tags
+      end
+      next_page = @tag_index[selected_tag]
 
       if next_page
         @page_index = next_page
