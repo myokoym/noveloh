@@ -3,15 +3,15 @@ env:
     - DISPLAY=":99.0"
 language: ruby
 rvm:
-  - 2.0.0
-  - 2.1
-  - 2.2
-  - rbx-2
-  - ruby-head
+  #- 2.1
+  #- 2.2
+  - 2.3.0
+  #- rbx-2
+  #- ruby-head
 matrix:
-  allow_failures:
-    - rvm: rbx-2
-    - rvm: ruby-head
+  #allow_failures:
+  #  - rvm: rbx-2
+  #  - rvm: ruby-head
   fast_finish: true
 before_install:
   - sudo apt-get update -qq
