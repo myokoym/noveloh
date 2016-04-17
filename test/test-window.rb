@@ -19,12 +19,11 @@ class WindowTest < Test::Unit::TestCase
           {"text" => "Hello"},
         ]
         @window = Noveloh::Window.new(pages)
+        @text = @window.instance_variable_get(:@text)
       end
 
-      def test_nothing_raised
-        assert_nothing_raised do
-          @window.draw
-        end
+      def test_text
+        assert_equal("Hello", @text.instance_variable_get(:@text))
       end
     end
 
@@ -34,12 +33,12 @@ class WindowTest < Test::Unit::TestCase
           {"background_image" => File.join(fixtures_dir, "leaf.jpg")},
         ]
         @window = Noveloh::Window.new(pages)
+        @background = @window.instance_variable_get(:@background)
+        @image = @background.instance_variable_get(:@image)
       end
 
-      def test_nothing_raised
-        assert_nothing_raised do
-          @window.draw
-        end
+      def test_image
+        assert_not_nil(@image)
       end
     end
 
@@ -50,12 +49,11 @@ class WindowTest < Test::Unit::TestCase
           {"color" => 0xffffffff},
         ]
         @window = Noveloh::Window.new(pages)
+        @text = @window.instance_variable_get(:@text)
       end
 
-      def test_nothing_raised
-        assert_nothing_raised do
-          @window.draw
-        end
+      def test_color
+        assert_equal(0xffffffff, @text.instance_variable_get(:@color))
       end
     end
   end
