@@ -14,16 +14,29 @@ class WindowTest < Test::Unit::TestCase
 
   class DrawTest < self
     class TextTest < self
-      def setup
+      def test_text
         pages = [
           {"text" => "Hello"},
         ]
         @window = Noveloh::Window.new(pages)
-        @text = @window.instance_variable_get(:@text)
+        text = text_attr("text")
+        assert_equal("Hello", text)
       end
 
-      def test_text
-        assert_equal("Hello", @text.instance_variable_get(:@text))
+      def test_color
+        pages = [
+          {"text" => "Hello"},
+          {"color" => 0xffffffff},
+        ]
+        @window = Noveloh::Window.new(pages)
+        color = text_attr("color")
+        assert_equal(0xffffffff, color)
+      end
+
+      private
+      def text_attr(name)
+        @text = @window.instance_variable_get(:@text)
+        @text.instance_variable_get("@#{name}")
       end
     end
 
@@ -39,21 +52,6 @@ class WindowTest < Test::Unit::TestCase
 
       def test_image
         assert_not_nil(@image)
-      end
-    end
-
-    class ColorTest < self
-      def setup
-        pages = [
-          {"text" => "Hello"},
-          {"color" => 0xffffffff},
-        ]
-        @window = Noveloh::Window.new(pages)
-        @text = @window.instance_variable_get(:@text)
-      end
-
-      def test_color
-        assert_equal(0xffffffff, @text.instance_variable_get(:@color))
       end
     end
   end
